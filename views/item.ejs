@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FullStack Template | Item List</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header><%- include('./partials/navbar') %></header>
+    <main>
+      <section>
+        <h1>This is a full stack template - Item List</h1>
+        <p>
+          Lorem ipsum perspiciatis alias illo necessitatibus distinctio eum
+          veritatis sed ad optio nobis deserunt!
+        </p>
+      </section>
+      <section>
+        <h2>create new item:</h2>
+        <form class="create-item" id="createItem" action="/item" method="POST">
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter Item Name"
+            required
+          />
+          <input
+            type="text"
+            name="description"
+            placeholder="Enter short description"
+            required
+          />
+          <input
+            type="text"
+            name="price"
+            placeholder="Enter price for each item"
+            required
+          />
+          <button type="submit">Create Item</button>
+        </form>
+      </section>
+
+      <section class="list-container">
+        <h2>your item list:</h2>
+        <ul id="itemList" class="item-list">
+          <% items.forEach((item) => { %>
+          <li>
+            <div class="name-desc">
+              <div>
+                <span class="name"><%= item.name %>:</span>
+                <span><%= item.description %></span>
+              </div>
+              <div>
+                <span class="price">$<%= item.price %></span>
+              </div>
+            </div>
+            <div class="item-btns">
+              <button
+                onclick="editItem('<%= item._id %>', '<%= item.name %>', '<%= item.description %>', '<%= item.price %>')"
+              >
+                Edit
+              </button>
+              <button onclick="deleteItem('<%= item._id %>')" class="delete">
+                Delete
+              </button>
+            </div>
+          </li>
+          <% }); %>
+        </ul>
+      </section>
+
+      <section>
+        <h2>update an item you selected:</h2>
+        <form
+          class="update-item"
+          id="updateItem"
+          action="/item/update"
+          method="POST"
+        >
+          <input type="hidden" name="_id" id="updateId" />
+          <input
+            type="text"
+            name="name"
+            id="updateName"
+            placeholder="update Item Name"
+            required
+          />
+          <input
+            type="text"
+            name="description"
+            id="updateDescription"
+            placeholder="update item description"
+            required
+          />
+          <input
+            type="text"
+            name="price"
+            id="updatePrice"
+            placeholder="update item price"
+            required
+          />
+          <button type="submit">Update Item</button>
+        </form>
+      </section>
+    </main>
+    <footer><%- include('./partials/footer') %></footer>
+    <script src="/js/script.js"></script>
+  </body>
+</html>
